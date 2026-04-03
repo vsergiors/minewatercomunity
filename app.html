@@ -463,22 +463,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;
      MODALS
 ═══════════════════════════════════════════ -->
 
-<!-- EVENT -->
-<div class="modal-bg" id="modal-event">
-  <div class="modal">
-    <h2>🗓️ Crear evento</h2>
-    <div class="form-group"><label>Título</label><input id="ev-title" type="text" placeholder="Nombre del evento"/></div>
-    <div class="form-row">
-      <div class="form-group"><label>Fecha y hora</label><input id="ev-date" type="datetime-local"/></div>
-      <div class="form-group"><label>Ubicación</label><input id="ev-loc" type="text" placeholder="Online / Lugar"/></div>
-    </div>
-    <div class="form-group"><label>Descripción</label><textarea id="ev-desc" rows="3" placeholder="Detalles…"></textarea></div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('modal-event')">Cancelar</button>
-      <button class="btn btn-primary" onclick="createEvent()">Crear</button>
-    </div>
-  </div>
-</div>
+
 
 <!-- POLL -->
 <div class="modal-bg" id="modal-poll">
@@ -549,19 +534,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;
   </div>
 </div>
 
-<!-- RAFFLE -->
-<div class="modal-bg" id="modal-raffle">
-  <div class="modal">
-    <h2>🎲 Crear sorteo</h2>
-    <div class="form-group"><label>Título</label><input id="raf-title" type="text" placeholder="Nombre del sorteo"/></div>
-    <div class="form-group"><label>Premio</label><input id="raf-prize" type="text" placeholder="¿Qué se sortea?"/></div>
-    <div class="form-group"><label>Fecha límite</label><input id="raf-end" type="datetime-local"/></div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('modal-raffle')">Cancelar</button>
-      <button class="btn btn-primary" onclick="createRaffle()">Crear</button>
-    </div>
-  </div>
-</div>
 
 <!-- TOAST CONTAINER -->
 <div id="toast"></div>
@@ -617,7 +589,7 @@ function nav(page){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById(`page-${page}`).classList.add('active');
   const items = document.querySelectorAll('.nav-item');
-  const pageOrder=['dashboard','events','polls','leaderboard','gallery','tickets','wiki','raffles','suggestions'];
+  const pageOrder=['dashboard','events','polls','gallery','tickets','wiki','suggestions'];
   const idx = pageOrder.indexOf(page);
   if(items[idx]) items[idx].classList.add('active');
   loadPage(page);
