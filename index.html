@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Community Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07080f;
+  --surface:#0e1020;
+  --border:#1e2240;
+  --accent:#5c6eff;
+  --accent2:#ff4f8b;
+  --text:#e8eaff;
+  --muted:#6a6f9a;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+/* ── NOISE OVERLAY ── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:999;opacity:.4
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 3rem;
+  border-bottom:1px solid var(--border);
+  background:rgba(7,8,15,.85);
+  backdrop-filter:blur(12px)
+}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.1em;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-cta{
+  display:flex;gap:.8rem}
+.btn{
+  display:inline-block;padding:.6rem 1.4rem;border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;
+  cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-ghost{border:1px solid var(--border);color:var(--text)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-solid{background:var(--accent);color:#fff;border:1px solid var(--accent)}
+.btn-solid:hover{background:#7285ff;transform:translateY(-1px);box-shadow:0 8px 24px rgba(92,110,255,.35)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:6rem 2rem 4rem;position:relative;overflow:hidden
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(92,110,255,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(92,110,255,.06) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%)
+}
+.hero-glow{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(92,110,255,.15) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none
+}
+.badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.35rem 1rem;border-radius:99px;
+  border:1px solid rgba(92,110,255,.4);background:rgba(92,110,255,.1);
+  font-size:.78rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:2rem;animation:fadein .6s ease}
+.hero h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3.5rem,10vw,8rem);
+  line-height:.95;letter-spacing:.02em;
+  margin-bottom:1.5rem;animation:fadein .8s ease .1s both}
+.hero h1 span{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{
+  max-width:520px;font-size:1.1rem;color:var(--muted);line-height:1.7;
+  margin-bottom:2.5rem;animation:fadein .8s ease .2s both}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadein .8s ease .3s both}
+
+/* ── FEATURES ── */
+.features{padding:5rem 2rem;max-width:1100px;margin:0 auto}
+.section-label{
+  text-align:center;font-size:.8rem;text-transform:uppercase;letter-spacing:.15em;
+  color:var(--accent);margin-bottom:.8rem}
+.section-title{
+  text-align:center;font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2rem,5vw,3.5rem);letter-spacing:.05em;margin-bottom:3.5rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  padding:1.8rem;transition:all .3s;position:relative;overflow:hidden}
+.card::before{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:linear-gradient(135deg,rgba(92,110,255,.06),transparent);
+  opacity:0;transition:opacity .3s}
+.card:hover{border-color:rgba(92,110,255,.4);transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.card:hover::before{opacity:1}
+.card-icon{font-size:2rem;margin-bottom:1rem}
+.card h3{font-size:1rem;font-weight:500;margin-bottom:.5rem}
+.card p{font-size:.875rem;color:var(--muted);line-height:1.6}
+
+/* ── FOOTER ── */
+footer{
+  text-align:center;padding:3rem 2rem;
+  border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+
+@keyframes fadein{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">COMMUNITY HUB</div>
+  <div class="nav-cta">
+    <a href="login.html" class="btn btn-ghost">Iniciar sesión</a>
+    <a href="login.html#register" class="btn btn-solid">Unirse</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="badge">✦ Tu comunidad, todo en un lugar</div>
+  <h1>La plataforma<br>de tu <span>comunidad</span></h1>
+  <p>Eventos, encuestas, rankings, sorteos y mucho más. Todo integrado, todo en tiempo real.</p>
+  <div class="hero-btns">
+    <a href="login.html#register" class="btn btn-solid">Empezar gratis</a>
+    <a href="#features" class="btn btn-ghost">Ver funciones</a>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="section-label">Funcionalidades</div>
+  <div class="section-title">Todo lo que tu comunidad necesita</div>
+  <div class="grid">
+    <div class="card"><div class="card-icon">🗓️</div><h3>Eventos</h3><p>Crea quedadas, torneos y reuniones. Los miembros se apuntan y ves quién asiste.</p></div>
+    <div class="card"><div class="card-icon">📊</div><h3>Encuestas</h3><p>Lanza votaciones con resultados en tiempo real y barras de progreso animadas.</p></div>
+    <div class="card"><div class="card-icon">🏆</div><h3>Leaderboard</h3><p>Tabla de clasificación pública con puntos asignables por los admins.</p></div>
+    <div class="card"><div class="card-icon">📁</div><h3>Galería</h3><p>Muro de imágenes estilo Pinterest. Screenshots, arte y fotos de la comunidad.</p></div>
+    <div class="card"><div class="card-icon">🎫</div><h3>Soporte / Tickets</h3><p>Sistema de tickets interno para gestionar peticiones y problemas con estados.</p></div>
+    <div class="card"><div class="card-icon">📝</div><h3>Wiki</h3><p>Base de conocimiento con guías, normas y tutoriales. Con buscador y categorías.</p></div>
+    <div class="card"><div class="card-icon">🎲</div><h3>Sorteos</h3><p>Crea sorteos con fecha límite. El sistema elige al ganador de forma aleatoria.</p></div>
+    <div class="card"><div class="card-icon">📬</div><h3>Buzón anónimo</h3><p>Sugerencias sin revelar la identidad. Los admins las gestionan en un panel privado.</p></div>
+  </div>
+</section>
+
+<footer>Community Hub — Construido con Supabase &amp; amor ✦</footer>
+
+</body>
+</html>
